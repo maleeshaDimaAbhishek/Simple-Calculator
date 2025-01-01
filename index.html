@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="Style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="calculator">
@@ -13,39 +15,102 @@
                     <input type="text" id="display" name="display" readonly>
                 </div>
                 <div>
-                    <input type="button" value="AC" onclick="clearDisplay()" class="operator">
-                    <input type="button" value="DE" onclick="deleteLast()" class="operator">
-                    <input type="button" value="." onclick="appendValue('.')" class="operator">
-                    <input type="button" value="/" onclick="appendOperator('/')" class="operator">
+                    <input type="button" value="AC" onclick="clearDisplay()" class="operators">
+                    <input type="button" value="DE" onclick="deleteLast()" class="operators ">
+                    <input type="button" value="." onclick="appendValue('.')" class="operators ">
+                    <input type="button" value="/" onclick="appendOperator('/')" class="operators ">
                 </div>
                 <div>
                     <input type="button" value="7" onclick="appendValue('7')">
                     <input type="button" value="8" onclick="appendValue('8')">
                     <input type="button" value="9" onclick="appendValue('9')">
-                    <input type="button" value="x" onclick="appendOperator('*')" class="operator">
+                    <input type="button" value="x" onclick="appendOperator('*')" class="operators ">
                 </div>
                 <div>
                     <input type="button" value="4" onclick="appendValue('4')">
                     <input type="button" value="5" onclick="appendValue('5')">
                     <input type="button" value="6" onclick="appendValue('6')">
-                    <input type="button" value="-" onclick="appendOperator('-')" class="operator">
+                    <input type="button" value="-" onclick="appendOperator('-')" class="operators ">
                 </div>
                 <div>
                     <input type="button" value="1" onclick="appendValue('1')">
                     <input type="button" value="2" onclick="appendValue('2')">
                     <input type="button" value="3" onclick="appendValue('3')">
-                    <input type="button" value="+" onclick="appendOperator('+')" class="operator">
+                    <input type="button" value="+" onclick="appendOperator('+')" class="operators ">
                 </div>
                 <div>
                     <input type="button" value="00" onclick="appendValue('00')">
                     <input type="button" value="0" onclick="appendValue('0')">
-                    <input type="button" value="=" onclick="calculate()" class="equal operator">
+                    <input type="button" value="%" onclick="calculatePercentage()" class="operators">
+                    <input type="button" value="x²" onclick="calculateSquare()" class="operators">
                 </div>
+                <div>
+
+                    <input type="button" value="√" onclick="calculateSquareRoot()" class="operators">
+                    <input type="button" value="M+" onclick="memoryAdd()" class="operators">
+                    <input type="button" value="M-" onclick="memorySubtract()" class="operators">
+                    <input type="button" value="MR" onclick="memoryRecall()" class="operators">
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <input type="button" value="sin" onclick="calculateTrig('sin')" class="operators ">
+                    <input type="button" value="cos" onclick="calculateTrig('cos')" class="operators ">
+                    <input type="button" value="tan" onclick="calculateTrig('tan')" class="operators ">
+                    <input type="button" value="=" onclick="calculate()" class="equal operators ">
+                </div>
+
             </form>
         </div>
     </div>
     <script>
         const display = document.getElementById('display');
+        let memory = 0;
+        function calculatePercentage() {
+            if (display.value) {
+                display.value = parseFloat(display.value) / 100;
+            }
+        }
+        function calculateSquare() {
+            if (display.value) {
+                display.value = Math.pow(parseFloat(display.value), 2);
+            }
+        }
+        function calculateSquareRoot() {
+            if (display.value) {
+                display.value = Math.sqrt(parseFloat(display.value));
+            }
+        }
+        function memoryAdd() {
+            if (display.value) {
+                memory += parseFloat(display.value);
+            }
+        }
+        function memorySubtract() {
+            if (display.value) {
+                memory -= parseFloat(display.value);
+            }
+        }
+        function memoryRecall() {
+            display.value = memory;
+        }
+        function calculateTrig(func) {
+            if (display.value) {
+                let value = parseFloat(display.value);
+                switch (func) {
+                    case 'sin':
+                        display.value = Math.sin(value * Math.PI / 180); 
+                        break;
+                    case 'cos':
+                        display.value = Math.cos(value * Math.PI / 180); 
+                        break;
+                    case 'tan':
+                        display.value = Math.tan(value * Math.PI / 180);
+                        break;
+                }
+            }
+        }
 
         function clearDisplay() {
             display.value = '';
@@ -75,4 +140,5 @@
         }
     </script>
 </body>
+
 </html>
